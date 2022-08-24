@@ -8,7 +8,7 @@ module.exports = {
      * @param {Message} message
      */
     async execute(message) {
-        if(!message.author.bot) return;
+        if(message.author.bot) return;
         
          // await DB.deleteOne({GuildID: message.guild.id, UserID: message.author.id});
         
@@ -19,7 +19,8 @@ module.exports = {
                 DB.findOne({GuildID: message.guild.id, UserID: m.id}, async (err, data) => {
                     if(err) throw err;
                     if(data)
-                        Embed.setDescription(`${m} Went AFK <t:${data.Time}:R>\n Status: ${data.status}`);
+                    Embed.setDescription(`${m} Went AFK <t:${data.Time}:R>\n R
+                    eason: ${data.Status}`);
                     return message.reply({embeds: [Embed]});
                 })
             })

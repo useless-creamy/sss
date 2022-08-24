@@ -3,7 +3,6 @@ const { CommandInteraction, Client, MessageEmbed } = require("discord.js");
 module.exports = {
     name: "music",
     description: "music system",
-    permission: "SEND_MESSAGES",
     options: [
         {
             name: "play",
@@ -23,11 +22,14 @@ module.exports = {
             type: "SUB_COMMAND",
             options: [{ name: "options", description: "Select an option.", type: "STRING", required: true,
             choices: [
-                { name: "queue", value: "queue"},
-                { name: "skip", value: "skip"},
-                { name: "pause", value: "pause"},
-                { name: "resume", value: "resume"},
-                { name: "stop", value: "stop"},
+                { name: "🔢 queue", value: "queue"},
+                { name: "⏭️ skip", value: "skip"},
+                { name: "⏸️ pause", value: "pause"},
+                { name: "▶️ resume", value: "resume"},
+                { name: "🔈 stop", value: "stop"},
+                { name: "🔀 Shuffle", value : "shuffle"},
+                { name: "🔂 Autoplay", value: "AutoPlay" },
+                { name: "🔁 Repeat", value: "Repeat"}
             ]
         }]}
     ],
@@ -49,7 +51,8 @@ module.exports = {
             switch(options.getSubcommand()) {
                 case "play" : {
                     client.distube.playVoiceChannel( VoiceChannel, options.getString("query"), { textChannel: channel, member: member });
-                    return interaction.reply({content: `**🔊 Song started in <#${guild.me.voice.channelId}>**.`});
+                    return interaction.reply({content: `Song request recieved.`})
+
                 }
                 case "volume" : {
                     const Volume = options.getNumber("percent");
@@ -68,16 +71,48 @@ module.exports = {
                     switch(options.getString("options")) {
                         case "skip" : 
                            await queue.skip(VoiceChannel) 
-                                return interaction.reply({content: "**⏭️ Song has been skipped.**"})
+                                return interaction.reply({content: "**⏭️ Song has been skipped.**"});
+
                          case "stop" : 
                             await queue.stop(VoiceChannel) 
-                                return interaction.reply({content: "**⏭️ Every song has been stopped.**"})
+                                return interaction.reply({content: "**⏭️ Every song has been stopped.**"});
+
                          case "pause" : 
                              await queue.pause(VoiceChannel) 
-                                return interaction.reply({content: "**⏸️ Songs has been paused.**"})
+                                return interaction.reply({content: "**⏸️ Songs has been paused.**"});
+
                          case "resume" : 
                              await queue.resume(VoiceChannel) 
-                                return interaction.reply({content: "**▶️ Songs has been resumed**"})
+                                return interaction.reply({content: "**▶️ Songs has been resumed**"});
+
+                                case "shuffle" : 
+                                await queue.shuffle(VoiceChannel) 
+                                   return interaction.reply({content: "**🔀 Songs have been shuffled randomly.**"});
+
+                                   case "Autoplay" : 
+                                    let mode = await queue.toggleAutoPlay(VoiceChannel) 
+                                      return interaction.reply({content: `⏯️ AutoPlay is now set to: ${mode ? "On" : "Off"}`});
+
+                                      case "Repeat" : 
+                                      let Mode2 = await client.distube.setRepeatMode(queue);
+                                        return interaction.reply({content: `🔄️ Repeat Mode is now set to: ${Mode2 = Mode2 ? Mode2 == 2 ? "Queue" : "Song" : "Off"}`});
+        
+     
+  
+  
+      
+   
+
+
+
+
+
+
+
+
+
+
+
                          case "queue" : 
                          return interaction.reply({ embeds: [new MessageEmbed()
                         .setColor("BLURPLE")

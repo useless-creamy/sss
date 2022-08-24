@@ -42,8 +42,8 @@ module.exports = {
         case "set" : {
          await DB.findOneAndUpdate( 
           {GuildID: guild.id,  UserID: user.id},
-         {Status: afkStatus, Time: parseInt(createdTimestamp / 1000)},
-         {new: true, upsert: true}
+          {Status: afkStatus, Time: parseInt(createdTimestamp / 1000)},
+          {new: true, upsert: true}
          )
 
             Embed.setColor("GREEN").setDescription(`You AFK Status has been updated: **${afkStatus}**`);

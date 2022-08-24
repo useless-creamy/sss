@@ -1,5 +1,5 @@
 {
     "Token": "MTAwNTI2OTAzMDU2MDYxNjQ2MA.G2kK3M.g-FTkrSbllWVtqtBE9ZsjuuY8HHR32JWJPXxFw",
-    "Database": "mongodb+srv://ShadowMusicLyx:tomasb1234567809@shadowmusiclyx.ie6iyak.mongodb.net/?retryWrites=true&w=majority"
-
+    "Database": "mongodb+srv://ShadowMusicLyx:tomasb1234567809@shadowmusiclyx.ie6iyak.mongodb.net/data",
+    "EveryoneID": "1007756439344914503"
 }
